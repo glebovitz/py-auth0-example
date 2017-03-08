@@ -11,7 +11,7 @@ def setServiceConfig(required, service, key, env):
     if os.environ.get(env) != None:
         if not service in app.config['services']:
             app.config['services'][service] = {}
-        print('Configure Service {1} key {2} env {3}'.format(service, key, env))
+        print('Configure Service {0} key {1} env {2}'.format(service, key, env))
         app.config['services'][service][key] = os.environ.get(env)
     elif required and not (service in app.config['services'] and key in app.config['services'][service]):
         print("Service: '{0}' must include key: '{1}'".format(service, key))
