@@ -39,7 +39,7 @@ class RedisConnection:
         self.r = None
 
         # Set Mongo connection from with environment variables
-        from core.intelagent_config import app
+
         self.config['redis']['url'] = app.config['services']['redis']['url']
         if 'database' in app.config['services']['redis']:
             self.config['redis']['database'] = app.config['services']['redis']['database']
