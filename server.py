@@ -4,7 +4,6 @@ import os
 import yaml
 from functools import wraps
 from flask import Flask, request, jsonify, session, _app_ctx_stack
-from dotenv import Dotenv
 from flask_cors import cross_origin
 
 def setServiceConfig(required, service, key, env):
@@ -20,6 +19,8 @@ def setServiceConfig(required, service, key, env):
 app = Flask(__name__)
 app.config['services'] = {}
 
+setServiceConfig(True,  'flask',     'id',   'AUTH0_SERVICE_IP')
+setServiceConfig(True,  'flask',     'key',  'AUTH0_SERVICE_PORT')
 setServiceConfig(True,  'auth0',     'id',   'AUTH0_CLIENT_ID')
 setServiceConfig(True,  'auth0',     'key',  'AUTH0_CLIENT_SECRET')
 
@@ -97,6 +98,6 @@ def ping():
 def securedPing():
     return "All good. You only get this message if you're authenticated"
 
-
+#port 3001
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=os.environ.get('PORT', 3001))
+    app.run(host=app.config['AUTH0_SERVICE_IP'], port=app.config['AUTH0_SERIVCE_PORT'])
