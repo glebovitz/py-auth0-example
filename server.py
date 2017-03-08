@@ -11,7 +11,7 @@ def setServiceConfig(required, service, key, env):
     if os.environ.get(env) != None:
         if not service in app.config['services']:
             app.config['services'][service] = {}
-        print('Configure Service {1} key {2} env {3}', service, key, env)
+        print('Configure Service {1} key {2} env {3}'.format(service, key, env))
         app.config['services'][service][key] = os.environ.get(env)
     elif required and not (service in app.config['services'] and key in app.config['services'][service]):
         print("Service: '{0}' must include key: '{1}'".format(service, key))
@@ -55,11 +55,11 @@ class RedisConnection:
             urlparts = url.split(':')
             self.config['redis']['host'] = urlparts[0] if self.config['redis']['host'] is None else None
             self.config['redis']['port'] = urlparts[1] if self.config['redis']['port'] is None else None
-        print ("host {0}, port {1}, user {2}, pass {3} ",
+        print ("host {0}, port {1}, user {2}, pass {3} ".format(
             self.config['redis']['host'],
             self.config['redis']['port'],
             self.config['redis']['username'],
-            self.config['redis']['password'])
+            self.config['redis']['password']))
         if connect:
             self.connect()
         RedisConnection.connection = self
