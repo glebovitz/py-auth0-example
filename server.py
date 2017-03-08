@@ -19,8 +19,8 @@ def setServiceConfig(required, service, key, env):
 app = Flask(__name__)
 app.config['services'] = {}
 
-setServiceConfig(True,  'flask',     'id',   'AUTH0_SERVICE_IP')
-setServiceConfig(True,  'flask',     'key',  'AUTH0_SERVICE_PORT')
+setServiceConfig(True,  'flask',     'ip',   'AUTH0_SERVICE_IP')
+setServiceConfig(True,  'flask',     'port',  'AUTH0_SERVICE_PORT')
 setServiceConfig(True,  'auth0',     'id',   'AUTH0_CLIENT_ID')
 setServiceConfig(True,  'auth0',     'key',  'AUTH0_CLIENT_SECRET')
 
@@ -30,6 +30,8 @@ def handle_error(error, status_code):
     resp.status_code = status_code
     return resp
 
+client_id = app.config['services']['auth0']['id']
+client_key = app.config['services']['auth0']['key']
 
 def requires_auth(f):
     @wraps(f)
@@ -99,6 +101,6 @@ def securedPing():
     return "All good. You only get this message if you're authenticated"
 
 #port 3001
-print ("start ip = {0}, port = {1}", app.config['AUTH0_SERVICE_IP'], app.config['AUTH0_SERIVCE_PORT'])
+print ("start ip = {0}, port = {1}", app.config['services']['flask']['ip'], app.config['services']['flask']['port'])
 if __name__ == "__main__":
-    app.run(host=app.config['AUTH0_SERVICE_IP'], port=app.config['AUTH0_SERIVCE_PORT'])
+    app.run(host=app.config['services']['flask']['ip'], port=app.config['services']['flask']['port'])
