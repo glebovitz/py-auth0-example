@@ -99,5 +99,6 @@ def securedPing():
     return "All good. You only get this message if you're authenticated"
 
 #port 3001
+print ("start ip = {0}, port = {1}", app.config['AUTH0_SERVICE_IP'], app.config['AUTH0_SERIVCE_PORT'])
 if __name__ == "__main__":
     app.run(host=app.config['AUTH0_SERVICE_IP'], port=app.config['AUTH0_SERIVCE_PORT'])
